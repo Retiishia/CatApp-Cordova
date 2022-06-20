@@ -1,0 +1,15 @@
+@media screen and (prefers-color-scheme: dark) {
+    body {
+        background-color: rgb(218, 251, 255) !important;
+    }
+}
+
+nav {
+    border-bottom: 2px solid rgba(0, 151, 255, 1);
+}
+
+span,
+a {
+    color: rgba(0, 151, 255, 1);
+
+}

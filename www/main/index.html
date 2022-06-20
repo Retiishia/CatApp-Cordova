@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+    <meta name="color-scheme" co ntent="light dark">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/catapp.css">
+    <title>CatApp</title>
+</head>
+
+<body class="CatApp">
+    <nav class="navbar fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand">CatApp</a>
+            <form class="d-flex">
+                </script>
+                <input id="searchForm" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button id="searchBtn" class="btn" type="submit"><img src="../img/search.png" alt=""></button>
+            </form>
+        </div>
+    </nav>
+
+    <div id="searchresult" class="d-flex justify-content-center align-items-center align-self-center vh-100 pt-2">
+        <div class="my-auto">
+            <div id="notsearch" class="col text-center mx-auto" style="display: block;">
+                <img src="../img/cat.png" alt="">
+                <span id="">You not searching yet!</span>
+            </div> 
+            <div id="notfound" class="col text-center mx-auto" style="display: none;">
+                <img src="../img/sad.png" alt="">
+                <span id="">No cats found!</span>
+            </div>
+            <div class="content-wrapper" style="display: none;">
+                <div class="card">
+                    <img class="rounded-circle" src="" alt="">
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- JS -->
+    <script src="./assets/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/js/dark-rtl.js"></script>
+    <script src="./assets/js/active.js"></script>
+    <script src="./assets/js/jquery-3.6.0.min.js"></script>
+    <script src="../cordova.js"></script>
+    <script src="../js/index.js"></script>
+    <script src="../js/catsearch.js"></script>
+</body>
+
+</html>
