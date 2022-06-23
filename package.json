@@ -1,8 +1,8 @@
 {
-  "name": "io.cordova.hellocordova",
-  "displayName": "HelloCordova",
+  "name": "id.my.farhan.catapps",
+  "displayName": "CatApps",
   "version": "1.0.0",
-  "description": "A sample Apache Cordova application that responds to the deviceready event.",
+  "description": "Cat Apps adalah sebuah aplikasi yang berisi informasi yang berkaitan dengan film",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,14 +10,16 @@
   "keywords": [
     "ecosystem:cordova"
   ],
-  "author": "Apache Cordova Team",
+  "author": "Isep Lutpi Nur",
   "license": "Apache-2.0",
   "devDependencies": {
+    "cordova-android": "^10.1.2",
     "cordova-browser": "^6.0.0"
   },
   "cordova": {
     "platforms": [
-      "browser"
+      "browser",
+      "android"
     ]
   }
 }

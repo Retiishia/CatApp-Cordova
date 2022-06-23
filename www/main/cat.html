@@ -2,8 +2,6 @@
 <html lang="en">
 
 <head>
-    <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self' data: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
@@ -11,6 +9,19 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/catapp.css">
     <title>CatApp</title>
+    <style>
+        .circle {
+            border: 4px solid white;
+            margin: auto;
+            width: 175px;
+            height: 175px;
+            border-radius: 150px;
+            object-fit: cover;
+            object-position: center;
+            -webkit-border-radius: 150px;
+            -moz-border-radius: 150px;
+        }
+    </style>
 </head>
 
 <body class="CatApp">
@@ -20,55 +31,113 @@
         </div>
     </nav>
 
-    <div class="container-fluid justify-content-center align-items-center align-self-center vh-100 p-2 mt-1">
-        <div class="row">
-            <div class="rounded h-100" style="background-color: rgba(0, 151, 255, 1);">
-                <div class="col">
-                    <div class="row">
-                        <img class="img-fluid mt-2" src="../img/caatdummy.jpg" alt="">
-                    </div>
-                    <div class="row text-white">
-                        <div class="text-center">
-                            <h3 id="catName">Jenis Kucing</h3>
-                            <h4 id="catOrigin">Asal Kucing</h4>
-                        </div>
-                        <div class="text-start">
-                            <div class="m-2">
-                                <p class="fw-bold">Nama Lain</p>
-                                <p id="catother" class="fst-italic">namalainnamalain</p>
-                            </div>
-                            <div class="m-2">
-                                <p class="fw-bold">Jangka Hidup</p>
-                                <p id="catage" class="fst-italic">0 years</p>
-                            </div>
-                            <div class="m-2">
-                                <p class="fw-bold">Temperamen</p>
-                                <p id="cattemp" class="fst-italic">aweaw, aweasesa, asdsad</p>
-                            </div>
-                            <div class="m-2">
-                                <p class="fw-bold">Deskripsi</p>
-                                <p id="catdesc" class="fst-italic">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate mollitia est quam! Cupiditate nesciunt expedita nihil recusandae laudantium praesentium maiores et sunt nobis perferendis? Tempora illo rerum mollitia suscipit repellendus!</p>
-                            </div>
-                            <div class="m-2">
-                                <p class="fw-bold">Wikipedia</p>
-                                <p id="wikilink" class="fst-italic">https://wikipedia.com/</p>
-                            </div>
-                        </div>
-                    </div>
+    <div class="container mt-3">
+        <div class="card bg-info" style="width: 100%; border-radius: 16px;">
+            <div class="justify-content-center align-items-center align-self-center pt-2 mb-3">
+                <img class="circle" src="../img/caatdummy.jpg" alt="" id="gambar">
+            </div>
 
+            <div class="row text-white">
+                <div class="text-center">
+                    <h3 id="name"></h3>
+                    <h4 id="origin"></h4>
                 </div>
-
+                <div class="text-start">
+                    <!-- <div class="m-2">
+                        <p class="fw-bold" id>Nama Lain</p>
+                        <p id="catother" class="fst-italic"></p>
+                    </div> -->
+                    <div class="m-2">
+                        <p class="fw-bold mb-0">Jangka Hidup</p>
+                        <p id="life_span" class="fst-italic"></p>
+                    </div>
+                    <div class="m-2">
+                        <p class="fw-bold mb-0">Temperamen</p>
+                        <p id="temperament" class="fst-italic"></p>
+                    </div>
+                    <div class="m-2">
+                        <p class="fw-bold mb-0">Deskripsi</p>
+                        <p id="description" class="fst-italic"></p>
+                    </div>
+                    <div class="m-2">
+                        <p class="fw-bold mb-0">Wikipedia</p>
+                        <p id="wikipedia_url" class="fst-italic"></p>
+                    </div>
+                </div>
             </div>
         </div>
-
     </div>
+
     <!-- JS -->
-    <script src="./assets/js/bootstrap.bundle.min.js"></script>
-    <script src="./assets/js/dark-rtl.js"></script>
-    <script src="./assets/js/active.js"></script>
-    <script src="./assets/js/jquery-3.6.0.min.js"></script>
-    <script src="../cordova.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="../js/dark-rtl.js"></script> -->
+    <!-- <script src="../js/active.js"></script> -->
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <!-- <script src="../cordova.js"></script> -->
     <script src="../js/index.js"></script>
+    <!-- <script src="../js/catsearch.js"></script> -->
+
+
+    <script>
+        function detail_ajax(id) {
+            // set gambar
+            $('#gambar').attr(`https://cdn2.thecatapi.com/images/${id}.jpg`)
+            // set detail
+            $.ajax({
+                url: 'https://api.thecatapi.com/v1/images/' + id,
+                dataType: "json",
+                type: "GET",
+                data: null,
+                headers: {
+                    "x-api-key": "807ebbfc-67f4-466f-918d-30af4dd69663"
+                },
+                success: function (data) {
+                    $('#name').html(data.breeds[0].name);
+                    $('#origin').html(data.breeds[0].origin);
+                    $('#catother').html(data.breeds[0].catother);
+                    $('#life_span').html(data.breeds[0].life_span + ' years');
+                    $('#temperament').html(data.breeds[0].temperament);
+                    $('#description').html(data.breeds[0].description);
+                    $('#wikipedia_url').html(data.breeds[0].wikipedia_url);
+                },
+                error: function (data) {
+                    alert('the page was NOT loaded')
+                    console.log('the page was NOT loaded', data);
+                },
+                complete: function (xhr, status) {
+                    console.log('The request is complete!');
+                }
+            });
+        }
+
+
+        function params() {
+            return parseQueryString(String(window.location.search).replaceAll('?', ''));
+        }
+
+        function parseQueryString(query) {
+            var vars = query.split("&");
+            var query_string = {};
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split("=");
+                var key = decodeURIComponent(pair.shift());
+                var value = decodeURIComponent(pair.join("="));
+                // If first entry with this name
+                if (typeof query_string[key] === "undefined") {
+                    query_string[key] = value;
+                    // If second entry with this name
+                } else if (typeof query_string[key] === "string") {
+                    var arr = [query_string[key], value];
+                    query_string[key] = arr;
+                    // If third or later entry with this name
+                } else {
+                    query_string[key].push(value);
+                }
+            }
+            return query_string;
+        }
+        detail_ajax(params().id);
+    </script>
 </body>
 
 </html>

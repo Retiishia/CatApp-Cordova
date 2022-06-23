@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.cordova.hellocordova" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>HelloCordova</name>
-    <description>Sample Apache Cordova App</description>
-    <author email="dev@cordova.apache.org" href="https://cordova.apache.org">
-        Apache Cordova Team
+<widget id="id.my.farhan.catapps" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Cat Apps</name>
+    <description>Cat Apps adalah sebuah aplikasi yang berisi informasi yang berkaitan dengan film</description>
+    <author email="farhannur7@gmail.com" href="https://farhan.my.id">
+        Isep Lutpi Nur
     </author>
     <content src="index.html" />
     <allow-intent href="http://*/*" />

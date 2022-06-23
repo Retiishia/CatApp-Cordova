@@ -9,46 +9,119 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/catapp.css">
     <title>CatApp</title>
+    <style>
+        .circle {
+            border: 4px solid white;
+            margin: auto;
+            width: 175px;
+            height: 175px;
+            border-radius: 150px;
+            object-fit: cover;
+            object-position: center;
+            -webkit-border-radius: 150px;
+            -moz-border-radius: 150px;
+        }
+    </style>
 </head>
 
 <body class="CatApp">
-    <nav class="navbar fixed-top">
+    <nav class="navbar fixed-top" style="background-color: rgb(218, 251, 255) !important;">
         <div class="container-fluid">
             <a class="navbar-brand">CatApp</a>
-            <form class="d-flex">
+            <form class="d-flex" id="form-search">
                 </script>
-                <input id="searchForm" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button id="searchBtn" class="btn" type="submit"><img src="../img/search.png" alt=""></button>
+                <input id="search" class="form-control me-2" type="search" name="q" placeholder="Search"
+                    aria-label="Search" style="border-radius: 8px; background-color: rgb(218, 251, 255) !important;">
+                <button type="submit" class="btn" type="submit"><img src="../img/search.png" alt=""></button>
             </form>
         </div>
     </nav>
 
-    <div id="searchresult" class="d-flex justify-content-center align-items-center align-self-center vh-100 pt-2">
+    <br>
+    <br>
+    <br>
+    <div id="home" class="d-flex justify-content-center align-items-center align-self-center vh-100 pt-2 ">
         <div class="my-auto">
             <div id="notsearch" class="col text-center mx-auto" style="display: block;">
                 <img src="../img/cat.png" alt="">
                 <span id="">You not searching yet!</span>
-            </div> 
+            </div>
             <div id="notfound" class="col text-center mx-auto" style="display: none;">
                 <img src="../img/sad.png" alt="">
                 <span id="">No cats found!</span>
             </div>
-            <div class="content-wrapper" style="display: none;">
-                <div class="card">
-                    <img class="rounded-circle" src="" alt="">
-                    <div></div>
-                </div>
+            <div class="container" id="search-container">
+                <div class="row" id="searchresult"></div>
             </div>
         </div>
     </div>
+
     <!-- JS -->
-    <script src="./assets/js/bootstrap.bundle.min.js"></script>
-    <script src="./assets/js/dark-rtl.js"></script>
-    <script src="./assets/js/active.js"></script>
-    <script src="./assets/js/jquery-3.6.0.min.js"></script>
-    <script src="../cordova.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="../js/dark-rtl.js"></script> -->
+    <!-- <script src="../js/active.js"></script> -->
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <!-- <script src="../cordova.js"></script> -->
     <script src="../js/index.js"></script>
-    <script src="../js/catsearch.js"></script>
+    <!-- <script src="../js/catsearch.js"></script> -->
+
+    <script>
+
+        $('#form-search').on('submit', function (e) {
+            e.preventDefault();
+            home_ajax($('#search').val())
+        });
+
+        function home_ajax(q) {
+            $.ajax({
+                url: 'https://api.thecatapi.com/v1/breeds/search',
+                dataType: "json",
+                type: "GET",
+                data: {
+                    q: q
+                },
+                headers: {
+                    "x-api-key": "807ebbfc-67f4-466f-918d-30af4dd69663"
+                },
+                success: function (data) {
+                    if (data.length <= 0) {
+                        $('#notfound').fadeIn();
+                        $('#notsearch').hide();
+                        return;
+                    }
+                    home_render(data);
+                    $('#notfound').hide();
+                    $('#notsearch').hide();
+                },
+                error: function (data) {
+                    alert('the page was NOT loaded')
+                    console.log('the page was NOT loaded', data);
+                },
+                complete: function (xhr, status) {
+                    console.log('The request is complete!');
+                }
+            });
+        }
+
+        function home_render(datas) {
+            const body = $('#searchresult');
+            for (f in datas) {
+                const e = datas[f];
+                body.append(`
+                <div class="col-md-6 col-lg-3 my-2">
+                    <a href="./cat.html?id=${encodeURIComponent(e.reference_image_id)}" style="text-decoration: none;">
+                        <div class="card bg-info p-3 text-center" style="width: 100%; border-radius: 16px;">
+                            <img src="https://cdn2.thecatapi.com/images/${e.reference_image_id}.jpg" alt="" class="circle">
+                            <h3 class="text-white mt-2" style="text-decoration: none;">${e.name}</h3>
+                            <h5 class="text-white" style="text-decoration: none;">${e.origin}</h5>
+                        </div>
+                    </a>
+                </div>
+                `);
+            }
+        }
+
+    </script>
 </body>
 
 </html>

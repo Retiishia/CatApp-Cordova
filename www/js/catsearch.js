@@ -9,18 +9,18 @@ async function getCats() {
     let catName = document.getElementById('searchForm').value;
 
     try {
-        const response = await fetch(baseUrl+"?q="+catName)
+        const response = await fetch(baseUrl + "?q=" + catName)
         const json = await response.json()
         console.log('JSON', json)
         return showList(json)
-    } catch (e) { 
+    } catch (e) {
         console.log('Error while fetching cats.')
         console.log(e)
     }
 }
 
 showList = json => {
-    
+    console.log(json);
 }
 
 button.addEventListener('click', getCats)
